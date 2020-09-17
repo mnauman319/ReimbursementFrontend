@@ -4,49 +4,61 @@
         <button (click)="toggleSubmitVisibility()">Add Reimbursement</button>
     </div>
     <div>
-    <table>
-        <tr>
-            <th ><span (click)="sort($event)" id="item" class="material-icons">sort</span><b>Item</b></th>
-            <th id="status_head"><span id="status" (click)="sort($event)" class="material-icons">sort</span><b>Status</b></th>
-            <th id="category_head"><span id="category" (click)="sort($event)" class="material-icons">sort</span><b>Category</b></th>
-            <th id="amount_head"><span id="amount" (click)="sort($event)" class="material-icons">sort</span><b>Amount</b></th>
-            <th id="employee_head"><span id="employee" (click)="sort($event)" class="material-icons">sort</span><b>Employee</b></th>
-            <th id="note_head"><span id="note" (click)="sort($event)" class="material-icons">sort</span><b>Note</b></th>
-            <th id="date_head"><span id="date" (click)="sort($event)" class="material-icons">sort</span><b>Date Submitted</b></th>
-            <th>
-        </tr>
-        <tr *ngFor="let reimbursement of reimbursements">
-            <td id="itemField">{{reimbursement.item}}</td>
-            <td id="statusField">{{reimbursement.status}}</td>
-            <td id="categoryField">{{reimbursement.category}}</td>
-            <td id="amountField">{{reimbursement.amount}}</td>
-            <td id="employeeField">{{reimbursement.employee.firstName}} {{reimbursement.employee.lastName}}</td>
-            <td id="noteField">{{reimbursement.note}}</td>
-            <td id="dateField">{{reimbursement.dateSubmitted}}</td>
-            <td><button id="update_reim_btn" (click)="toggleUpdateVisibility($event)"  [value]="reimbursement.rId">Update Reimbursement</button></td>
-        </tr>
-    </table>
+        <table>
+            <tr>
+                <th><span (click)="sort($event)" id="item" class="material-icons">sort</span><b>Item</b></th>
+                <th id="status_head"><span id="status" (click)="sort($event)"
+                        class="material-icons">sort</span><b>Status</b></th>
+                <th id="category_head"><span id="category" (click)="sort($event)"
+                        class="material-icons">sort</span><b>Category</b></th>
+                <th id="amount_head"><span id="amount" (click)="sort($event)"
+                        class="material-icons">sort</span><b>Amount</b></th>
+                <th id="employee_head"><span id="employee" (click)="sort($event)"
+                        class="material-icons">sort</span><b>Employee</b></th>
+                <th id="note_head"><span id="note" (click)="sort($event)" class="material-icons">sort</span><b>Note</b>
+                </th>
+                <th id="date_head"><span id="date" (click)="sort($event)" class="material-icons">sort</span><b>Date
+                        Submitted</b></th>
+                <th>
+            </tr>
+            <tr *ngFor="let reimbursement of reimbursements">
+                <td id="itemField">{{reimbursement.item}}</td>
+                <td id="statusField">{{reimbursement.status}}</td>
+                <td id="categoryField">{{reimbursement.category}}</td>
+                <td id="amountField">{{reimbursement.amount}}</td>
+                <td id="employeeField">{{reimbursement.employee.firstName}} {{reimbursement.employee.lastName}}</td>
+                <td id="noteField">{{reimbursement.note}}</td>
+                <td id="dateField">{{reimbursement.dateSubmitted}}</td>
+                <td><button id="update_reim_btn" (click)="toggleUpdateVisibility($event)"
+                        [value]="reimbursement.rId">Update Reimbursement</button></td>
+            </tr>
+        </table>
     </div>
 
-    
+
 
 </div>
-<div id="submit_modal" class="modal" [style.visibility] = "submitVisibility">
+<div id="submit_modal" class="modal" [style.visibility]="submitVisibility">
     <div class="modal-content">
         <span id="close" (click)="toggleSubmitVisibility()" class="material-icons">clear</span>
         <h1 id="reim_header">Reimbursement Form</h1>
         <table>
             <tr id="reim_form">
-                <td><input id="item_field" type="text" placeholder="Item" [(ngModel)]="newReimbursement.item" required=""></td>
-                <td><input id="status_field" type="text" placeholder="Status" [(ngModel)]="newReimbursement.status"></td>
-                <td><input id="category_field" type="text" placeholder="Category" [(ngModel)]="newReimbursement.category"></td>
-                <td><input id="amount_field" type="text" placeholder="Amount" [(ngModel)]="newReimbursement.amount"></td>
+                <td><input id="item_field" type="text" placeholder="Item" [(ngModel)]="newReimbursement.item"
+                        required=""></td>
+                <td><input id="status_field" type="text" placeholder="Status" [(ngModel)]="newReimbursement.status">
+                </td>
+                <td><input id="category_field" type="text" placeholder="Category"
+                        [(ngModel)]="newReimbursement.category"></td>
+                <td><input id="amount_field" type="text" placeholder="Amount" [(ngModel)]="newReimbursement.amount">
+                </td>
             </tr>
             <tr id="reim_form">
                 <td><input id="employee_name_field" type="text" placeholder="First and Last Name"></td>
                 <td><input id="employee_id_field" type="text" placeholder="Employee Id"></td>
                 <td><input id="note_field" type="text" placeholder="Note" [(ngModel)]="newReimbursement.note"></td>
-                <td><input id="date_field" type="text" placeholder="Date Subtmitted" [(ngModel)]="newReimbursement.dateSubmitted"></td>
+                <td><input id="date_field" type="text" placeholder="Date Subtmitted"
+                        [(ngModel)]="newReimbursement.dateSubmitted"></td>
             </tr>
         </table>
 
@@ -55,34 +67,29 @@
     </div>
 </div>
 
-<div id="update_modal" class="modal" [style.visibility] = "updateVisibility">
+<div id="update_modal" class="modal" [style.visibility]="updateVisibility">
     <div class="modal-content">
-        <span class="close" (click)="toggleUpdateVisibility($event)">&times</span>
-        <h1 id="reim_header">Update Reimbursement</h1>
-        <table>
-            <tr>
-                <td>
-                    <h4>Change Status</h4>
-                </td>
-                <td>
-                    <h4>Add/Change a note</h4>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="dropdown">
-                        <span id="change_status" *ngIf="isUpdateReimPending">Status</span>
-                        <div class="dropdown-content" *ngIf="isUpdateReimPending">
-                            <button (click)="changeStatus($event)" id="approved_btn">approved</button>
-                            <button (click)="changeStatus($event)" id="denied_btn">denied</button>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <input type="text" placeholder="Note:" id="new_note" [(ngModel)]="newNote">
-                    <button id="change_note_btn" (click)="changeNote()">Change note</button>
-                </td>
-            </tr>
-        </table>
+        <div>
+            <span id="close" (click)="toggleUpdateVisibility($event)" class="material-icons">clear</span>
+            <h1 id="reim_header">Update Reimbursement</h1>
+        </div>
+        <div id="labels">
+            <div><h4>Change Status</h4></div>
+            <div><h4>Add/Change a note</h4></div>
+        </div>
+        <div id="labels">
+            <div class="dropdown">
+                <span id="change_status" *ngIf="isUpdateReimPending">Status</span>
+                <div class="dropdown-content" *ngIf="isUpdateReimPending">
+                    <button (click)="changeStatus($event)" id="approved_btn">approved</button>
+                    <button (click)="changeStatus($event)" id="denied_btn">denied</button>
+                </div>
+            </div>
+            <div style="padding-top: 1%;" id="note-container">
+                <input type="text" placeholder="Note:" id="new_note" [(ngModel)]="newNote">
+                <button id="change_note_btn" (click)="changeNote()">Change note</button>
+            </div>
+        </div>
+        
     </div>
 </div>

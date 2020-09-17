@@ -27,27 +27,20 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.employee = this.eserv.loggedInEmployee
-    // if(this.employee === undefined){
-    //   this.router.navigateByUrl('/login');
-    // }
+    if(this.employee === undefined){
+      this.router.navigateByUrl('/login');
+    }
     this.getReimbursements();
     this.initializeSortMap();
   }
 
 
   async getReimbursements(){
-    // this.reimbursements = this.employee.permission ? 
-    //                     await this.rserv.getAllReimbursements() : 
-    //                     await this.rserv.getEmployeeReimbursements(this.employee.id);
-
-    //____________________________________TESTING!!!!_____________________________________________
-
-    this.reimbursements = true ? 
+    this.reimbursements = this.employee.permission ? 
                         await this.rserv.getAllReimbursements() : 
                         await this.rserv.getEmployeeReimbursements(this.employee.id);
-    this.storedReimbursements = this.reimbursements;
 
-    //____________________________________TESTING!!!!_____________________________________________
+
     
   }
 
@@ -86,20 +79,26 @@ export class HomeComponent implements OnInit {
 
   async toggleUpdateVisibility(event){
     if(this.updateVisibility === "hidden"){
-      let id = event.target.value;
-      let tempReimbursements:Reimbursement[];
 
-      tempReimbursements = this.reimbursements.filter(reim =>{ return (reim.rId == id) });
-      this.updateReimbursement = tempReimbursements[0];
+      if(this.employee.permission !== true){
+        alert("You do not have permission to update reimbursements")
+      }else{
+        let id = event.target.value;
+        let tempReimbursements:Reimbursement[];
+  
+        tempReimbursements = this.reimbursements.filter(reim =>{ return (reim.rId == id) });
+        this.updateReimbursement = tempReimbursements[0];
+  
+        this.isUpdateReimPending = (this.updateReimbursement.status === "pending");
+        this.updateVisibility = "visible";
+      }
 
-      this.isUpdateReimPending = (this.updateReimbursement.status === "pending");
-      this.updateVisibility = "visible";
     }else{
       this.updateVisibility = "hidden";
     }
   }
   async changeStatus(event){
-    let newStatus = event.target.innerText;
+    let newStatus = (event.target.innerText == "approved") ? "accepted" : "rejected";
     
     this.updateReimbursement.status = newStatus;
     this.updateReimbursement = await this.rserv.updateReimbursement(this.updateReimbursement);
