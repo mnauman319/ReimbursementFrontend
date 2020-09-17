@@ -27,7 +27,6 @@ export class ReimbursementService {
 
   search(searchInput: string, reimbursements: Reimbursement[]) {
     searchInput = searchInput.toLowerCase();
-    console.log(searchInput);
 
     let tempFilteredReimbursements: Reimbursement[] = [];
     for (let reimbursement of reimbursements) {

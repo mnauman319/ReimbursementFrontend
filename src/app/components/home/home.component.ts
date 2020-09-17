@@ -34,13 +34,11 @@ export class HomeComponent implements OnInit {
     this.initializeSortMap();
   }
 
-
   async getReimbursements(){
     this.reimbursements = this.employee.permission ? 
                         await this.rserv.getAllReimbursements() : 
                         await this.rserv.getEmployeeReimbursements(this.employee.id);
-
-
+    this.storedReimbursements = this.reimbursements;
     
   }
 
@@ -88,7 +86,7 @@ export class HomeComponent implements OnInit {
   
         tempReimbursements = this.reimbursements.filter(reim =>{ return (reim.rId == id) });
         this.updateReimbursement = tempReimbursements[0];
-  
+        
         this.isUpdateReimPending = (this.updateReimbursement.status === "pending");
         this.updateVisibility = "visible";
       }
